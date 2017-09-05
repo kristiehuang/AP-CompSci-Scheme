@@ -108,7 +108,11 @@
 
 ;1.14 by hand
 
-;1.16 extra credit
-(define (fast-iter-expt num count max-count)
+;1.16 extra credit – write fast-expt iteratively
+;(define (fast-iter-expt num count max-count)
 
-  )
+;  )
+
+
+
+

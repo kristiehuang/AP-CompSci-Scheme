@@ -9,3 +9,7 @@
   (if (= b 0)
       a
       (gcd b (remainder a b))))
+
+((lambda (x y z) 
+  (equal? (+ (* x x) (* y y)) (* z z)))
+  3 4 5)
