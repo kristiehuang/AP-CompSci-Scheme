@@ -131,10 +131,32 @@
 
 
 
-;1.16 extra credit – write fast-expt iteratively
-;(define (fast-iter-expt num count max-count)
+;1.16 write fast-expt iteratively
 
-;  )
+; recursive form::
+(define (fast-expt b n)
+  (cond ((= n 0) 1)
+        ((even? n) (square (fast-expt b (/ n 2))))
+        (else (* b (fast-expt b (- n 1))))))
+
+; iterative form::
+(define (square a) (* a a))
+
+(define (fast-iter-expt a b n)
+  (cond ((= n 0) a)
+        ((even? n) (fast-iter-expt a (square b) (/ n 2) ))
+        (else (fast-iter-expt (* a b) b (- n 1)) )
+
+        )
+  )
+
+(define (fast-expt-2.0 b n)
+  (fast-iter-expt 1 b n)
+  )
+
+;1.19 - extra credit
+
+
 
 
 
