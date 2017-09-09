@@ -50,5 +50,33 @@
 
 ;   (trace func) ;shows all lines of intermediary code
 
-(if expr #t #f)
+;(if expr #t #f)
 ; if expr is true, return #t. if not, return #f
+
+;WORDS
+(butfirst 'hello) ;'ello
+(count 'blahblahblah) ;12
+(word 'hello 'this 'is) ;'hellothisis
+
+;SENTENCES
+(sentence '(i get) 'home 'at 3 'pm) ;'(i get home at 3pm)  ;; no need for '3! just 3 is fine
+(se '(when i get) 'home) ;'(when i get home)
+(butfirst '(yer blues)) ;'(blues)
+(butlast '(hello there)) ;hello
+(every butlast '(hello there)) ;hell there    functions as data!!
+
+> (bf '(sexy sadie)) ;(sadie) - sentence form!
+> (first (bf '(sexy sadie))) ;sadie - word form!
+
+(item 3 '(hello there my name is kristie)) ;returns "my"
+
+;PREDICATE = function that returns a bool value
+(equal? 'hi 'hello) ;#f
+(= 23 23) ;= is for numbers only
+
+;(member? letter wd)
+
+;vowel?
+(define (vowel? wd) (member? wd 'aeiou))
+
+;even? odd? number? empty?
