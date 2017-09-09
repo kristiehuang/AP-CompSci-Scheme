@@ -48,7 +48,7 @@
 ;O(1) constant for linear iterative
 ;O(n) linear recursive
 
-;   (trace func) ;shows all lines of intermediary code
+(trace func) ;shows all lines of intermediary code
 
 (if expr #t #f)
 ; if expr is true, return #t. if not, return #f
