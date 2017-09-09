@@ -1,18 +1,20 @@
 ;7.1
+(define (vowel? wd) (member? wd 'aeiou))
+
 (define (gertrude wd)
-  (let (asdf (if (vowel? (first wd)) 'an 'a))
-  se asdf
+  (let ((asdf (if (vowel? (first wd)) 'an 'a)))
+  (se asdf
       wd
       'is
       asdf
       wd
       'is
       asdf
-      wd
+      wd)
     )
   )
 
-(gertrude 'rose)
+(gertrude 'infant)
 ;(A ROSE IS A ROSE IS A ROSE)
 
 
@@ -23,4 +25,4 @@
     (se 'pi 'is pi 'but 'pie 'is pie))
 ;(PI IS 3.14159 BUT PIE IS LEMON MERINGUE)
 
-;(let (var1 value1) (var2 value2) funcBody)
+;(let ((var1 value1) (var2 value2)) funcBody)
