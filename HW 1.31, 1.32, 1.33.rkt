@@ -3,6 +3,7 @@
 ;1.30
 ;linear recursion
 (define (next a) (+ 1 a))
+(define (term x) x)
 
 (define (sum term a next b)
   (if (> a b)
@@ -13,29 +14,54 @@
 
 
 ;iterative
-(define (sum term a next b)
+(define (sum2 term a next b)
   (define (iter a result)
     (if (> a b)
         result
-        (iter <??> <??>)))
+        (iter (next a) (+ result (term a))))
+    )
   
-  (iter <??> <??>)
+  (iter a 0)
   )
 
 ;1.31 a
 
 ; procedural abstraction - generalizes PROCEDURES
 
+(define (product-iter term a next b)
+  (define (iter a result)
+    (if (
+         > a b) result
+                (iter (next a) (* (term a) result)
+                      )
+                )
+    )
+  (iter a 1)
+  )
 
+; broken recursive code!
+;(define (product term a next b)
+;  (if (< a b) 0
+;      (* a (product term (* (term a) (next a)) next b)
+;         )))
+  
+
+(define (factorial a)
+
+  (product-iter term 1 next a)
+  )
+
+
+;(factorial 3) = 6
 
 
 
 ;1.32 iterative only
-(define (accumulate op op-null term a next b)
-(if ((< a b) op-null)
-      (op (term a)
-         (accumulate term (next a) next b))))
-  )
+;(define (accumulate op op-null term a next b)
+;(if ((< a b) op-null)
+;      (op (term a)
+;         (accumulate term (next a) next b))))
+;  )
 
 ;1.33 (part a, use odd numbers)
 (define (gcd a b)
@@ -44,5 +70,5 @@
       (gcd b (remainder a b))))
 
 ((lambda (x y z) 
-  (equal? (+ (* x x) (* y y)) (* z z)))
-  3 4 5)
+   (equal? (+ (* x x) (* y y)) (* z z)))
+ 3 4 5)
