@@ -58,7 +58,7 @@
   (define (iter a result)
     (if (> a b) result
         (iter (next a) (op (term a)
-            result))
+                           result))
         )
     )
   (iter a op-null)
@@ -76,12 +76,41 @@
 
 
 
-;1.33 (part a, use odd numbers)
+;1.33a
+;sum of squares of the odd numbers in a-b
+(define (square x) (* x x))
+  
 (define (gcd a b)
   (if (= b 0)
       a
       (gcd b (remainder a b))))
 
+(define (filtered-accumulate a b)
+  (if (even? (gcd a b))
+      (accumulate + 0 square a next b)
+      'gfdsa
+      )
+  )
+
+(define (filter x) ()
+  )
+
+(define (filtered-accumulate op op-null term a next b filter)
+  (define (iter a result)
+    (if (> a b) result
+          
+        (iter (filter (next a)) (op (filter (term a))
+                                    result))
+        )
+    )
+  (iter a op-null)
+  )
+
+)
+)
+;(filtered-accumulate + 0 square a next b odd?)
+
+;b
 ((lambda (x y z) 
    (equal? (+ (* x x) (* y y)) (* z z)))
  3 4 5)
