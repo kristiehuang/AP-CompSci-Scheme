@@ -52,16 +52,29 @@
   )
 
 
-;(factorial 3) = 6
-
-
 
 ;1.32 iterative only
-;(define (accumulate op op-null term a next b)
-;(if ((< a b) op-null)
-;      (op (term a)
-;         (accumulate term (next a) next b))))
-;  )
+(define (accumulate op op-null term a next b)
+  (define (iter a result)
+    (if (> a b) result
+        (iter (next a) (op (term a)
+            result))
+        )
+    )
+  (iter a op-null)
+  )
+
+;sum
+(define (sum a b)
+  (accumulate + 0 term a next b) )
+
+(define (prod a b)
+  (accumulate * 1 term a next b) )
+
+
+
+
+
 
 ;1.33 (part a, use odd numbers)
 (define (gcd a b)
