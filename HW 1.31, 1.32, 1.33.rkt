@@ -92,12 +92,18 @@
 ;to n (i.e., all positive integers i < n such that GCD(i,n) = 1).
 
 
-
-
 (define (gcd a b)
   (if (= b 0)
       a
       (gcd b (remainder a b))))
 
-(define (filter x) (even? x)
+(define (relatively-prime? a n) (= 1 (gcd b a)))
+
+(define (prime-filter x)
+  (define (prime-filter2.0 y)
+    (= 1 (gcd y x))
+    )
+  (filtered-accumulate * 1 term 1 next x prime-filter2.0)
+    
   )
+;(filtered-accumulate * 1 term a next b prime-filter)
