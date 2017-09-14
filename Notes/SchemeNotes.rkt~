@@ -80,20 +80,3 @@
 (define (vowel? wd) (member? wd 'aeiou))
 
 ;even? odd? number? empty?
-
-
-
-
-;if vs cond
-(define (cond2.0 x) 
-  (cond ((= x 1) 'hello)
-        ((= x 2) 'ya)
-        ('(ya hello)))
-  )
-; can take more than 1 parameter
-
-(define (if2.0 x) 
-  (if (= x 1) 'hello
-      '(ya hello))
-  )
-; must take an if and else
