@@ -1,3 +1,5 @@
+;Kristie Huang, B˚
+
 ;1.30
 ;linear recursion
 (define (next a) (+ 1 a))
@@ -92,10 +94,19 @@
 ;to n (i.e., all positive integers i < n such that GCD(i,n) = 1).
 
 
-(define (gcd a b)
-  (if (= b 0)
+
+(define (gcd a rem)
+  
+  (cond ((> rem a) (gcd rem a)))
+
+  (if (= rem 0)
       a
-      (gcd b (remainder a b))))
+      (gcd rem (remainder a rem))
+      )
+  )
+;gcd is a logarithmic order of growth!!
+; aka super fast
+
 
 (define (relatively-prime? a n) (= 1 (gcd b a)))
 
