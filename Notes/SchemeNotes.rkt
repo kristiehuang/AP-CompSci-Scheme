@@ -40,9 +40,15 @@
 ;tail recursive = could have been written as a loop = iterative
 
 ;order of growth
-; time vs input size
+; input size vs number of iterations
+factorial - 5! vs 4!, has +1 interation - linear      ;if input is n. calls itself n times.
+/2 - 8 vs 16, has +1 iteration .. 1024 vs 2048, +1 iteration - logarithmic
+;if input is n. calls itself log(2)n times
+
+
 ; linear > exponential order of growth!!!! much faster
 ; coefficient of lead term does not matter
+
 ;order of growth = how many times the func is being called
 ;recursive/iterative diff
 ;O(1) constant for linear iterative

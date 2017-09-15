@@ -15,9 +15,9 @@
 
 (define (explode word)
   (if (= (count word) 1) (se word)
-      (se (first word) (explode (bf word)))
+        (se (first word) (explode (bf word)))
 
-      )
+        )
   )
 
 ;hithere
@@ -35,10 +35,6 @@
       (se
        (firsttwo word)
        (letter-pairs (bf word)))
+       )
       )
-  )
 
-;order of growth / big O notation
-;time
-;recursion is usually logarithmic
-;
