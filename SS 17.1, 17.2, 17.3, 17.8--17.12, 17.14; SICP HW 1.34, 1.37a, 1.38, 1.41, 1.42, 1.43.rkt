@@ -59,21 +59,38 @@
 
 ; SS 17.8 // write member
 (define (member element list)
-  (if (not (assoc element list)) #f
-      #t
+  (cond ((null? list) #f)
+        ((equal? element (car list)) #t)
+        (else (member element (cdr list))))
+  )
+
+; SS 17.9 // write list-ref
+;(listref '(hi there hello) 2)   'hello
+(define (listref list index)
+  (if (= index 0) (car list)
+        (listref (cdr list) (- index 1))
+   )
+  )
+
+; just for fun –  returns index of element in list
+(define (index element list)
+  (define (indexhelper element list counter)
+    (cond ((equal? element (car list)) counter)
+          ((indexhelper element (cdr list) (+ 1 counter)))
+          ))
+  (if (null? list) '(empty list sry)
+      (indexhelper element list 0)
       )
   )
 
-(define (member2 element list)
-  (cond ((null? list) #f)
-    ((equal? element (car list)) #t)
-    (else (member2 element (cdr list))))
-      
 
-  )
 
-; SS 17.9
+
 ; SS 17.10
+(define (length2 list)
+  (
+   )
+
 ; SS 17.11
 ; SS 17.12
 ; SS 17.14
