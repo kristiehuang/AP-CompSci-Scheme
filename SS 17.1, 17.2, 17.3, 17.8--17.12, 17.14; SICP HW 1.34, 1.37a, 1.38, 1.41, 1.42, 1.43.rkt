@@ -68,8 +68,8 @@
 ;(listref '(hi there hello) 2)   'hello
 (define (listref list index)
   (if (= index 0) (car list)
-        (listref (cdr list) (- index 1))
-   )
+      (listref (cdr list) (- index 1))
+      )
   )
 
 ; just for fun –  returns index of element in list
@@ -88,10 +88,31 @@
 
 ; SS 17.10
 (define (length2 list)
-  (
-   )
+  (define (lengthhelper list length)
+    (cond ((null? list) (+ 1 length))
+          ((lengthhelper (cdr list) (+ length 1)))))
+  (if (null? list) 0
+      (lengthhelper (cdr list) 0)
+      )
+  )
 
 ; SS 17.11
+(define (before-in-list? list first second)
+  (define (beforelisthelper list first second counter)
+    (cond 
+      (equal? (car list) first)
+      (equal? (car list) second)
+      )
+    )
+  (cond ((null? list) #f)
+        ((= (map (assoc list '(first second))) #f) #f)
+        (beforelisthelper list first second 0)
+        )
+  )
+  
+
+
+
 ; SS 17.12
 ; SS 17.14
 
