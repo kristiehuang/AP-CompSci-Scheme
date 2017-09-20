@@ -13,5 +13,3 @@
 
 ;RECURSIVE EXPANDS CONTRACTS
 ;KEEPS NESTING UNTIL HIT BASE CASE
-
-((if sqrt 1+ identity) 9)   ;??????
