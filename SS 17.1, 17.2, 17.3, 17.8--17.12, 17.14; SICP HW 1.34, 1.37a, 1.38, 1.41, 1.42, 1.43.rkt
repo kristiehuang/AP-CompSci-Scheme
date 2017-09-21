@@ -143,7 +143,7 @@
     (else (listref list (car index)))
    
     )
-)
+  )
 
 
 
@@ -156,26 +156,31 @@
 
 
 ; SICP 1.37a
-(define (cont-frac num den)
-
-  (define (cont-frachelper num den k)
-    (cond
-      (= k (somethin) )
-
-      (/ num (num + (cont-frachelper num den (- k 1)
-
+(define (golden-ratio k)
+  (if (= k 0) 0
+      (/ 1.0 (+ 1.0 (golden-ratio (- k 1))))
       )
-    )
+  )
 
-  
-  (if (= k asdjfalf) frac
-        (cont-frachelper num den 0)
-   )
+(define (cont-frac num den k)
+  (if (= k 0) 0
+      (/ (num k) (+ (den k) (cont-frac num den (- k 1))))
+      )
   )
 
 
 
 ; SICP 1.38
+(define (euler k)
+  (if (= k 0) 2
+  (+ (cont-frac (lambda (i) 1.0) (lambda (x) (if (= (remainder (+ x 1) 3) 0) (* (/ (+ x 1) 3) 2)
+                                                 1)) k) 2))
+  )
+
+;  (cond ((= k 0) 2)
+   
+
+
 ; SICP 1.41
 ; SICP 1.42
 ; SICP 1.43

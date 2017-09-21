@@ -98,22 +98,87 @@
 
 ; SS 17.11
 (define (before-in-list? list first second)
-  (define (beforelisthelper list first second counter)
+  (define (beforelisthelper list first second)
     (cond 
-      (equal? (car list) first)
-      (equal? (car list) second)
+      ((equal? (car list) second) #f) ;if second comes first; break return false
+      ((equal? (car list) first) #t) ;if first comes first; break return true
+      (beforelisthelper (cdr list) first second) ;if none, repeat until one comes first
       )
     )
-  (cond ((null? list) #f)
-        ((= (map (assoc list '(first second))) #f) #f)
-        (beforelisthelper list first second 0)
+  (cond ((< (count list) 2) #f)
+        ;((= (assoc list '((first second))) #f) #f) ;if they are not even in list, return false
+        (beforelisthelper list first second)
+        )
+  )
+
+
+(define (before-in-list?1 list first second)
+  (cond ((< (count list) 2) #f)
+        ;((= (assoc list '((first second))) #f) #f) ;if they are not even in list, return false
+        ((equal? (car list) second) #f) ;if second comes first; break return false
+        ((equal? (car list) first) #t) ;if first comes first; break return true
+        (before-in-list?1 (cdr list) first second) ;if none, repeat until one comes first
         )
   )
   
-
-
+  
 
 ; SS 17.12
+(define (flatten listt)
+  (cond ((null? listt) '())
+        ((list? (car listt)) (append (flatten (car listt)) (flatten (cdr listt))))
+        (else (cons (car listt) (flatten (cdr listt))))
+        )
+  )
+;map list; append
+  
+
+
 ; SS 17.14
+;;;this is broken
+(define (branch index list)
+  (cond
+    ((null? index) null)
+    ((list? (listref list (car index))) (branch (cdr index) (listref list (car index))))
+    (else (listref list (car index)))
+   
+    )
+)
+
+
+
+
+; SICP 1.34
+(define (square x) (* x x))
+
+(define (f g) (g 2))
+;ERROR; can't call function on function with no base case
+
+
+; SICP 1.37a
+(define (cont-frac num den)
+
+  (define (cont-frachelper num den k)
+    (cond
+      (= k (somethin) )
+
+      (/ num (num + (cont-frachelper num den (- k 1)
+
+      )
+    )
+
+  
+  (if (= k asdjfalf) frac
+        (cont-frachelper num den 0)
+   )
+  )
+
+
+
+; SICP 1.38
+; SICP 1.41
+; SICP 1.42
+; SICP 1.43
+
 
 
