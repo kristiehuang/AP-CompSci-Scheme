@@ -15,3 +15,24 @@
 ;KEEPS NESTING UNTIL HIT BASE CASE
 
 ((if sqrt 1+ identity) 9)   ;??????
+; if sqrt is true, then 1+. otherwise identity
+; if its not false, then it is auto true
+
+(define (perfect-square? x)
+  (integer? (sqrt x))
+  )
+
+(define (fast-expt b n)
+  (define (fast-expt-iter a b n)
+    (cond ((= n 0) a)
+          ((even? n) (square (fast-expt b (/ n 2))))
+          (else (* b (fast-expt b (- n 1)))))
+    )
+  (fast-expt-iter 1 b n)
+  )
+
+define iter
+(cond (base case) result
+      (iter (squ
+
+; recursive (* x func)

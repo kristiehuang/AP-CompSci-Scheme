@@ -57,6 +57,7 @@
 ;ERROR; needs 2 arguments
 
 
+
 ; SS 17.8 // write member
 (define (member element list)
   (cond ((null? list) #f)
@@ -64,10 +65,13 @@
         (else (member element (cdr list))))
   )
 
+
+
+
 ; SS 17.9 // write list-ref
 ;(listref '(hi there hello) 2)   'hello
 (define (listref list index)
-  (if (= index 0) (car list)
+  (if (= index 1) (car list)
       (listref (cdr list) (- index 1))
       )
   )
@@ -95,6 +99,7 @@
       (lengthhelper (cdr list) 0)
       )
   )
+
 
 ; SS 17.11
 (define (before-in-list? list first second)
@@ -138,13 +143,10 @@
 ;;;this is broken
 (define (branch index list)
   (cond
-    ((null? index) null)
-    ((list? (listref list (car index))) (branch (cdr index) (listref list (car index))))
-    (else (listref list (car index)))
-   
+    ((null? (cdr index)) (listref list (car index)))
+    (else (branch (cdr index) (listref list (car index))))
     )
   )
-
 
 
 
@@ -173,17 +175,31 @@
 ; SICP 1.38
 (define (euler k)
   (if (= k 0) 2
-  (+ (cont-frac (lambda (i) 1.0) (lambda (x) (if (= (remainder (+ x 1) 3) 0) (* (/ (+ x 1) 3) 2)
-                                                 1)) k) 2))
+      (+ (cont-frac (lambda (i) 1.0) (lambda (x) (if (= (remainder (+ x 1) 3) 0) (* (/ (+ x 1) 3) 2)
+                                                     1)) k) 2))
   )
-
-;  (cond ((= k 0) 2)
    
 
 
 ; SICP 1.41
+(define (inc x) (+ 1 x))
+
+(define (double procedure)
+  (lambda (x) (procedure (procedure x)))
+  )
+
+;(((double (double double)) inc) 5)
+;((sixteentuple inc) 5) = 21
+
+
 ; SICP 1.42
+(define (compose proc1 proc2)
+  (lambda (x) (proc1 (proc2 x)))
+  )
+
 ; SICP 1.43
-
-
-
+(define (repeated procedure num)
+  (if (= num 1) procedure
+      (compose (repeated procedure (- num 1)) procedure)
+      )
+  )
