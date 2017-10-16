@@ -35,8 +35,6 @@
 
 (map square '(9 3 2)) ;(81 9 4)
 
-(filter even? '(2 3 4 5)) ;(2 4)
-
 (filter (lambda (flavor) (member? 'swirl flavor))
           '((rum raisin) (root beer swirl) (rocky road) (fudge swirl)))
 ;if each one contains "swirl", keep & return it

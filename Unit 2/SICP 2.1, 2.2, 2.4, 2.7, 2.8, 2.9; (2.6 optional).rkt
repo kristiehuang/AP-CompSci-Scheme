@@ -1,4 +1,4 @@
-;Kristie Huang, B˚
+p;Kristie Huang, B˚
 
 ;2.1
 
@@ -89,14 +89,14 @@
 (define (cons x y)
   (lambda ((lambda (p q) p))) ((lambda (x y) x)))
 
-
-;SUBSTITUTION
+    ; substitution
 (car (cons x y))
 ((cons x y) (lambda (p q) p))
 ((lambda (m) (m x y)) (lambda (p q) p))
 ((lambda (p q) p) x y)
 ((lambda (x y) x))
 x
+
 
 (define (cdr z)
   (z (lambda (p q) q)))
@@ -109,8 +109,10 @@ x
 
 ;2.8
 (define (sub-interval x y)
-  (make-interval (- (lower-bound x) (lower-bound y))
-                 (- (upper-bound x) (upper-bound y))))
+  (make-interval 
+   (- (upper-bound x) (upper-bound y)) (- (lower-bound x) (lower-bound y))
+   )
+  )
 
 
 
