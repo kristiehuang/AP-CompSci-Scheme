@@ -26,13 +26,18 @@
 ;2.18
 (define (reverse l)
   (define (reverse-iter list remaining)
-    (if (= 0 (length list)) remaining
+    (if (null? list) remaining
         (reverse-iter (cdr list) (cons (car list) remaining))
-        )
-    )
+        ))
   (reverse-iter l '())
   )
 
+(define (reverse2.0 l)
+  (cond ((null? l) '())
+        ((null? (cdr l)) l)
+        (else (append (reverse2.0 (cdr l)) (list (car l))))
+        )
+  )
 
 
 ;2.20
@@ -72,8 +77,59 @@
 
 
 ;2.24
+
+'(1 (2 (3 4)))
+
+;( 1 -> ) ( 2 -> ) (.. / )
+;                   > (3 ->) (4 /)
+
+;(list      1     (list 2 (list 3 4))    )
+;                   > (list  2   (list 3 4)  )
+;                                 > (3   4)
+
+
+
 ;2.25
+(define a
+  '(1 3 (5 7) 9) )
+(cadr (cadr (cdr a)))
+
+(define b
+  '((7)) )
+(caar b)
+
+(define c
+  '(1 (2 (3 (4 (5 (6 7))))))  )
+(cadr (cadr (cadr (cadr (cadr (cadr c))))))
+
+
+
 ;2.26
+(define x (list 1 2 3))
+(define y (list 4 5 6))
+
+(append x y) ; (1 2 3 4 5 6)
+
+(cons x y) ; ( (1 2 3) 4 5 6)
+;;????
+
+(list x y) ; ( (1 2 3) (4 5 6))
+
+
 ;2.27
+
+(define (deep-reverse l)
+  (define (reverse-iter list final)
+    (cond ((null? list) final)
+          ;if car list is list, run thru w/ list
+          ((list? (car list)) (reverse-iter (cdr list) (append (deep-reverse (cdr l)) (list (reverse (car l)) ))))
+          (else (reverse-iter (cdr list) (cons (car list) final)))
+          )
+    )
+  (reverse-iter l '())
+  
+  )
+
+
 
 ;2.19 (extra credit)
