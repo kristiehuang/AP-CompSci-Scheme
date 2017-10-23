@@ -1,6 +1,7 @@
 ;Kristie Huang, B˚
 
 <<<<<<< HEAD
+<<<<<<< HEAD
 
 
 (define make-mobile list)
@@ -87,6 +88,9 @@
 
 
 
+=======
+;2.1
+>>>>>>> 2e2fc4cba36ad516e0a857facdfd1ddb944a34b0
 =======
 ;2.1
 >>>>>>> 2e2fc4cba36ad516e0a857facdfd1ddb944a34b0
