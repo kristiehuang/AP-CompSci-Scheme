@@ -1,7 +1,5 @@
 ;Kristie Huang, B˚
 
-<<<<<<< HEAD 
-
 
 (define make-mobile list)
 
