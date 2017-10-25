@@ -43,20 +43,33 @@
   )
 
 ;2.29 c
+
+
 (define (balanced? mob)
 
+
   (define (torque branch)
-    (cond
-      ((weight? branch) (* (branch-length branch) branch))
-      ((mobile? branch) (balanced? branch))
-      (else #f))
-
+    (if 
+     (weight? (branch-struct branch)) (* (branch-length branch) (branch-struct branch))
+  
+     (* (branch-length branch) (total-weight (branch-struct branch)))
+     )
     )
+  
+  (define (branch-balanced? branch)
+    (cond
+      ((weight? branch) #t)
+      ((mobile? branch) (balanced? branch))
+      )
+    )
+    
+  (and (= (torque (left-branch mob)) (torque (right-branch mob))) (branch-balanced? (branch-struct (left-branch mob))) (branch-balanced? (branch-struct (right-branch mob))))
 
-  ;(= (torque (left-branch mob)) (torque (right-branch mob)))
-  ((torque (left-branch mob)) && (torque (right-branch mob)))
   
   )
+
+(trace balanced?)
+(trace total-weight)
 
 
 
