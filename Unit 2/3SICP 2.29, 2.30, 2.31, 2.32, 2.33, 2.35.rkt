@@ -42,9 +42,8 @@
   (+ (weight (branch-struct (left-branch mob))) (weight (branch-struct (right-branch mob))))
   )
 
+
 ;2.29 c
-
-
 (define (balanced? mob)
 
 
@@ -79,18 +78,56 @@
 
 
 ;2.30
+(define (square x) (* x x))
 
+
+(define (sq-tree tree)
+  (cond ((null? tree) '())
+        ((not (pair? tree)) (square tree))
+        (else (cons (sq-tree (car tree))
+                    (sq-tree (cdr tree))))
+        )
+  )
 
 
 ;2.31
 
+(define (tree-map func tree)
+  (cond ((null? tree) '())
+        ((not (pair? tree)) (func tree))
+        (else (cons (tree-map func (car tree))
+                    (tree-map func (cdr tree))))
+        )
+  )
+(define (square-tree tree) (tree-map square tree))
 
 
-;2.32
-
+;2.32 broken
+(define (subsets s)
+  (if (null? s) (list null)
+      (let ((rest (subsets (cdr s))))
+        (append rest (map list rest)))))
 
 
 ;2.33
+(define (accumulate op initial sequence)
+  (if (null? sequence)
+      initial
+      (op (car sequence)
+          (accumulate op initial (cdr sequence)))))
+
+
+
+(define (map2 p sequence)
+  (accumulate (lambda (x y) (cons (p x) y)) null sequence)
+  )
+
+(define (append2 seq1 seq2)
+  (accumulate cons '() (cons seq1 seq2)))
+
+(define (length2 sequence)
+  (accumulate asdfsadfas 0 sequence))
+
 
 
 
