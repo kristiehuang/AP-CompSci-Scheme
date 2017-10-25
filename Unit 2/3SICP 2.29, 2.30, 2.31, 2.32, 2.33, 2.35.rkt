@@ -117,7 +117,6 @@
           (accumulate op initial (cdr sequence)))))
 
 
-
 (define (map2 p sequence)
   (accumulate (lambda (x y) (cons (p x) y)) null sequence)
   )
@@ -126,9 +125,17 @@
   (accumulate cons '() (cons seq1 seq2)))
 
 (define (length2 sequence)
-  (accumulate asdfsadfas 0 sequence))
-
-
+  (accumulate (lambda (x y) (+ 1 y)) 0 sequence))  ;;why does this work
 
 
 ;2.35
+(define (count-leaves x)
+  (cond ((null? x) 0)  
+        ((not (pair? x)) 1)
+        (else (+ (count-leaves (car x))
+                 (count-leaves (cdr x))))))
+
+(define asdf (cons (list 1 2) (list 3 4)))
+
+(define (count-leaves2 t)
+  (accumulate + 0 (map append t))) ;if t is not pair; 1;
