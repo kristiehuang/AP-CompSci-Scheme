@@ -46,24 +46,19 @@
 ;2.29 c
 (define (balanced? mob)
 
-
   (define (torque branch)
     (if 
-     (weight? (branch-struct branch)) (* (branch-length branch) (branch-struct branch))
-  
+     (weight? (branch-struct branch)) (* (branch-length branch) (branch-struct branch))  
      (* (branch-length branch) (total-weight (branch-struct branch)))
-     )
-    )
+     ))
   
   (define (branch-balanced? branch)
     (cond
       ((weight? branch) #t)
       ((mobile? branch) (balanced? branch))
-      )
-    )
+      ))
     
   (and (= (torque (left-branch mob)) (torque (right-branch mob))) (branch-balanced? (branch-struct (left-branch mob))) (branch-balanced? (branch-struct (right-branch mob))))
-
   
   )
 
@@ -102,11 +97,15 @@
 (define (square-tree tree) (tree-map square tree))
 
 
-;2.32 broken
+;2.32
 (define (subsets s)
   (if (null? s) (list null)
       (let ((rest (subsets (cdr s))))
-        (append rest (map list rest)))))
+        (append rest (map (lambda (x) (cons (car s) x)) rest)   )
+        )
+      )
+  )
+        
 
 
 ;2.33
@@ -128,7 +127,7 @@
   (accumulate (lambda (x y) (+ 1 y)) 0 sequence))  ;;why does this work
 
 
-;2.35
+;2.35 broken
 (define (count-leaves x)
   (cond ((null? x) 0)  
         ((not (pair? x)) 1)
@@ -138,4 +137,5 @@
 (define asdf (cons (list 1 2) (list 3 4)))
 
 (define (count-leaves2 t)
-  (accumulate + 0 (map append t))) ;if t is not pair; 1;
+  (accumulate + 0 (map (lambda (x y) (+ x y)) t))
+  ) ;if t is not pair; 1;
