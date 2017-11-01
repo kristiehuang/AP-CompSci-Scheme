@@ -4,10 +4,23 @@
 
 ;3.1
 (define (make-accumulator initial)
-  (lambda (x) (set! initial (+ initial x)) initial)
+  (lambda (addend) (set! initial (+ initial addend))
+    initial)
   )
 
 ;3.2
+(define (make-monitored func)
+  (define counter 0)
+  (lambda (m)
+    (cond
+      ((eq? m 'reset-count) (set! counter 0))
+      ((eq? m 'how-many-calls?) counter)
+      (else (begin (set! counter (+ 1 counter)) (func m)  ))
+      )
+    )
+  )
+ 
+
 
 
 ;3.3
