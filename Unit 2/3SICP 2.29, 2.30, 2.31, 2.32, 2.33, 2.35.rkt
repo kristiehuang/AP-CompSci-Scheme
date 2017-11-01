@@ -139,3 +139,15 @@
 (define (count-leaves2 t)
   (accumulate + 0 (map (lambda (x y) (+ x y)) t))
   ) ;if t is not pair; 1;
+
+
+
+
+
+
+
+(define (maxpath1 tree)
+  (cond
+    ((null? tree) 0)
+    ;((leaf? tree) tree)
+    (else (+ (datum tree) (max (maxpath1 (right tree)) (maxpath1 (left tree)))))))

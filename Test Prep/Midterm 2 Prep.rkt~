@@ -31,8 +31,6 @@ the-empty-tree                   ; a tree with no content
   )
 
 (define (pathway num bst)
-
-  
   (cond
     ((empty-tree? bst) (list #f))
     ((< num (datum bst)) (cons 'left (pathway num (left bst))))
@@ -40,11 +38,10 @@ the-empty-tree                   ; a tree with no content
     ((= num (datum bst)) (list 'done))
 
     )
-    
-    
   )
 
 
+(define (square x) (* x x))
 
 (define (deepmap func list)
   (define (deepmapiter func list final-list)
@@ -60,7 +57,6 @@ the-empty-tree                   ; a tree with no content
   (deepmapiter func list '())
   )
 
-(define (square x) (* x x))
 
 
 
