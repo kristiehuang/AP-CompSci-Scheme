@@ -67,24 +67,63 @@
 
 ;3.8 help
 
-(define (f-broken num)
-  (define counter 0)
-  (cond
-    ((= counter 0)     
-     (begin
-       (cond ((= num 0) (set! counter 3))
-             (else (set! counter (+ 1 counter)))
-             ) 0))
-    ((= counter 1) 1)
-    (else 0)
+(define f ;paley
+  (let ((state-variable -1))
+    (lambda (n)
+      (cond ((= n 0) (set! state-variable (+ state-variable 1))
+                     state-variable)
+            (else state-variable))))
+  )
+
+;if bool
+(define f-bool
+  (let ((state-variable #f))
+    (lambda (n)
+      (cond ((= n 0) (set! state-variable (not state-variable))
+                     state-variable)
+            (else state-variable)))))
+
+
+;state-varialbe can be bool too
+;how let & lambda work in 3.8
+;state-variable??
+
+
+(define f2 ;michael
+  (let ((previous 1)) ;previous = 1
+    (lambda (x)
+      (let ((return-val (* previous x)))
+        (set! previous x) return-val)   )
     )
-  ;if num=1 has been evaluated before, then return 1. if not, return 0
-  
   )
 
 
-(define f
-  (let ((previous 1)) (lambda (x) (let ((return-val (* previous x))) (set! previous x) return-val))))
-
 (+ (f 0) (f 1)) ; 0
 (+ (f 1) (f 0)) ; 1
+
+(+ (f2 0) (f2 1)) ; 0
+(+ (f2 1) (f2 0)) ; 1
+
+
+(define (make-withdraw balance)
+  (lambda (amount)
+    (if (>= balance amount)
+        (begin (set! balance (- balance amount))
+               balance)
+        "Insufficient funds")))
+
+
+(define (make-withdraw initial-amount)
+  ((lambda (balance) 
+    (lambda (amount)
+      (if (>= balance amount)
+          (begin (set! balance (- balance amount))
+                 balance)
+          "Insufficient funds"))) initial-amount)
+  )
+
+(define W1 (make-withdraw 100))
+
+(W1 50)
+
+(define W2 (make-withdraw 100))
