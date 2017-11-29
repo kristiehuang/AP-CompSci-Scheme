@@ -18,11 +18,36 @@ b
 appendable
 
 
-; 3.15
-
-
+; 3.15 - did on paper
 
 ; 3.16
+(define test '((cons 1 2 32 3) (cons (cons 1 2) 2) (cons 3 3)))
+(define (count-pairs x)
+  (if (not (pair? x))
+      0
+      (+ (count-pairs (car x))
+         (count-pairs (cdr x))
+         1)))
+
+(count-pairs test)
+
+(define a (list 1 2 3))
+
+a
+(count-pairs a) ; returns 3
+
+a
+(set-car! (cdr a) (cddr a))
+(count-pairs a) ; returns 4
+
+a
+(set-car! a (cdr a))
+(count-pairs a) ; returns 7
+
+a
+(set-car! a (cdddr a))
+(set-cdr! a (cdddr a))
+(count-pairs a) ; never returns - this broken
 
 
 ; 3.17
@@ -50,11 +75,10 @@ appendable
     (cp2 pair)))
 
 ; 3.22
-Here is the skeleton for a queue that uses message passing.
 
-Note that you do not pass a queue as an input to a queue object. It is already a queue!
-
-Peek is already written. Blanks do not imply that only one line of code is needed. They do imply that some amount of code is needed.
+;Here is the skeleton for a queue that uses message passing.
+;Note that you do not pass a queue as an input to a queue object. It is already a queue!
+;Peek is already written. Blanks do not imply that only one line of code is needed. They do imply that some amount of code is needed.
 
 (define (make-queue)
   (let ((front-ptr '())
@@ -74,7 +98,7 @@ Peek is already written. Blanks do not imply that only one line of code is neede
     ; insert-queue! plays out differently depending on whether the queue
     ; is currently empty or not
     (define (insert-queue! datum)
-      (let ((new-node (cons datum ())))
+      (let ((new-node (cons datum '())))
         ________))
 
     ; delete-queue! has three possibilties:
@@ -107,7 +131,7 @@ Peek is already written. Blanks do not imply that only one line of code is neede
 
 ; delete! problem for tables
 (define (make-table)
-  (cons '* ()))
+  (cons '* '()))
 (define (empty-table? t) (null? (cdr t)))
 
 (define (insert! key value table)

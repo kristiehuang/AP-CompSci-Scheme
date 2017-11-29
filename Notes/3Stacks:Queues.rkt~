@@ -13,9 +13,18 @@
 ;(set! (cadr b) b) ;?? why no error
 
 
-(define appendable (append a b))
-(define consable (cons a b))
-(set-car! (cdr a) 9)
+; PROVE APPEND MAKES A COPY OF A AND USES ORIGINAL B
 
+;before
+a
+b
+
+(define appendable (append a b))
+(set-car! (cdr a) 'new)
+(set-car! b 'original)
+
+
+;after
+a
+b
 appendable
-consable
