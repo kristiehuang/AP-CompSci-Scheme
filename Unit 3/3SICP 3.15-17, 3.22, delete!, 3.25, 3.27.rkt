@@ -45,34 +45,44 @@ a
 (count-pairs a) ; returns 7
 
 a
-(set-car! a (cdddr a))
-(set-cdr! a (cdddr a))
-(count-pairs a) ; never returns - this broken
+(set-car! (cdr a) a)
+; (count-pairs a) ;   never returns!!
 
 
 ; 3.17
 (define (cp pair)
   (let ((visited '()))
     (define (visited? pair vl)
+      (cond
+        ((null? vl) #f)
+        ((eq? pair (car vl)) #t)
+        (else (begin (visited? pair (cdr vl)) #f)))
       ; return #t if the pair is in vl, #f otherwise
-      ; the member function is NOT useful for this because it does
-      ;   not check to see if the pair being searched is the exact
+      ; check to see if the pair being searched is the exact
       ;   same memory location as a pair in the list
       ; note that we need the second input to receive visited
       ;   so we can cdr through its contents
-      ; #t is used as a placeholder for real code
-      #t)
+
+      )
     (define (cp2 pair)
-      ; if not a pair, 0
-      ; if already visited, 0
-      ; else:
-          ; updated visited (use set!) to include pair
-          ; set! is not a placeholder--it is real code!
-          (set! visited (cons pair visited))
-          ; recursive calls on car and cdr
-      ; 0 is used as a placeholder for real code
-      0)
-    (cp2 pair)))
+      (cond
+        ((not (pair? pair)) 0) ;if not a pair
+        ((visited? pair visited) 0) ;if already visited
+        (else  ; updated visited (use set!) to include pair
+               ; recursive calls on car and cdr
+               (begin (set! visited (cons pair visited))
+                     (+ 1 (cp (car pair)) (cp (cdr pair)))
+
+                     )
+               ))
+      )
+    (cp2 pair))
+  )
+
+
+
+
+
 
 ; 3.22
 
@@ -108,15 +118,15 @@ a
     (define (delete-queue!)
       (cond ((empty-queue?) (error "Empty queue.  :-("))
             (else 
-                    ; store the datum at the head of the queue
-                  (let ((return-value (peek)))
-                    ; update the front pointer
-                    ________
-                    ; If there was only one thing in the queue, then the
-                    ; rear-ptr will need to be set to nil
-                    (if (null? front-ptr) ________)
-                    ; Now return the element of the queue (or #f)
-                    ________))))
+             ; store the datum at the head of the queue
+             (let ((return-value (peek)))
+               ; update the front pointer
+               ________
+               ; If there was only one thing in the queue, then the
+               ; rear-ptr will need to be set to nil
+               (if (null? front-ptr) ________)
+               ; Now return the element of the queue (or #f)
+               ________))))
 
     (define (dispatch message)
       (cond ((eq? message 'insert-queue!) insert-queue!)
@@ -126,45 +136,3 @@ a
     ________))
 
 
-
-
-
-; delete! problem for tables
-(define (make-table)
-  (cons '* '()))
-(define (empty-table? t) (null? (cdr t)))
-
-(define (insert! key value table)
-  (let ((record (assoc key (cdr table))))
-    (if record
-        (set-cdr! record value)
-        (set-cdr! table
-                  (cons (cons key value) (cdr table)))))
-  'ok)
-
-        
-(define (lookup k t)
-  (let ((record (assoc k (cdr t))))
-    (cond (record (cdr record))
-          (else #f))))
-(define (assoc key records)
-  (cond ((null? records) #f)
-        ((equal? key (caar records)) (car records))
-        (else (assoc key (cdr records)))))
-
-(define (rlookup k t)
-  (let ((record (rassoc k (cdr t))))
-    (cond (record (car record))
-          (else #f))))
-(define (rassoc value records)
-  (cond ((null? records) #f)
-        ((equal? value (cdar records)) (car records))
-        (else (rassoc value (cdr records)))))
-
-(define (delete! k t)
-  ???)
-
-; 3.25
-
-
-; 3.27
