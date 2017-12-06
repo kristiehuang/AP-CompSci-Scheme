@@ -82,8 +82,6 @@ a
 
 
 
-
-
 ; 3.22
 
 ;Here is the skeleton for a queue that uses message passing.
@@ -97,19 +95,23 @@ a
     ; empty-queue? is written to align with the way front-ptr
     ; and rear-ptr were given, above
     (define (empty-queue?)
-      ________)
+      null?)
 
     ; peek returns the datum at the front of the queue
     ; peek returns #f if the queue is empty
     (define (peek)
-      (cond ((empty-queue?) (error "Empty queue.  :-("))
+      (cond ((empty-queue?) 'nope)
             (else (car front-ptr))))
 
     ; insert-queue! plays out differently depending on whether the queue
     ; is currently empty or not
     (define (insert-queue! datum)
       (let ((new-node (cons datum '())))
-        ________))
+        (cond ((empty-queue?) (begin
+                                (set! front-ptr new-node) (set! rear-ptr new-node)))
+              (else (set-cdr! rear-ptr new-node) (set! rear-ptr new-node)))
+     
+        ))
 
     ; delete-queue! has three possibilties:
     ; * empty queue
@@ -121,18 +123,63 @@ a
              ; store the datum at the head of the queue
              (let ((return-value (peek)))
                ; update the front pointer
-               ________
+               (set! front-ptr (cdr front-ptr))
                ; If there was only one thing in the queue, then the
                ; rear-ptr will need to be set to nil
-               (if (null? front-ptr) ________)
+               (if (null? front-ptr) (set! rear-ptr null))
                ; Now return the element of the queue (or #f)
-               ________))))
+               (if (null? return-value) #f return-value)
+             ))))
 
     (define (dispatch message)
       (cond ((eq? message 'insert-queue!) insert-queue!)
             ((eq? message 'delete-queue!) delete-queue!)
             ((eq? message 'peek) peek)
             ((eq? message 'empty?) empty-queue?)))
-    ________))
+    
+    dispatch))
 
 
+
+
+
+
+; delete! problem for tables
+(define (make-table)
+  (cons '* '()))
+(define (empty-table? t) (null? (cdr t)))
+
+(define (insert! key value table)
+  (let ((record (assoc key (cdr table))))
+    (if record
+        (set-cdr! record value)
+        (set-cdr! table
+                  (cons (cons key value) (cdr table)))))
+  'ok)
+
+        
+(define (lookup k t)
+  (let ((record (assoc k (cdr t))))
+    (cond (record (cdr record))
+          (else #f))))
+(define (assoc key records)
+  (cond ((null? records) #f)
+        ((equal? key (caar records)) (car records))
+        (else (assoc key (cdr records)))))
+
+(define (rlookup k t)
+  (let ((record (rassoc k (cdr t))))
+    (cond (record (car record))
+          (else #f))))
+(define (rassoc value records)
+  (cond ((null? records) #f)
+        ((equal? value (cdar records)) (car records))
+        (else (rassoc value (cdr records)))))
+
+(define (delete! k t)
+  ???)
+
+; 3.25
+
+
+; 3.27
