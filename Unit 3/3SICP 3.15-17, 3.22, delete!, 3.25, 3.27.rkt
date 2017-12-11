@@ -95,7 +95,7 @@ a
     ; empty-queue? is written to align with the way front-ptr
     ; and rear-ptr were given, above
     (define (empty-queue?)
-      null?)
+      (null? front-ptr))
 
     ; peek returns the datum at the front of the queue
     ; peek returns #f if the queue is empty
@@ -140,11 +140,21 @@ a
     dispatch))
 
 
+(define q1 (make-queue))
+((q1 'empty?)) ;#t
+((q1 'insert-queue!) 'a)
+((q1 'insert-queue!) 'b)
+((q1 'insert-queue!) 'c)
+((q1 'peek)) ;a b c, returns a
+((q1 'empty?))
+((q1 'delete-queue!))
+((q1 'peek)) ;a bc, returns b
 
 
 
 
 ; delete! problem for tables
+
 (define (make-table)
   (cons '* '()))
 (define (empty-table? t) (null? (cdr t)))
@@ -162,7 +172,7 @@ a
   (let ((record (assoc k (cdr t))))
     (cond (record (cdr record))
           (else #f))))
-(define (assoc key records)
+(define (assoc key records) ;returns pair based on key
   (cond ((null? records) #f)
         ((equal? key (caar records)) (car records))
         (else (assoc key (cdr records)))))
@@ -171,13 +181,16 @@ a
   (let ((record (rassoc k (cdr t))))
     (cond (record (car record))
           (else #f))))
-(define (rassoc value records)
+(define (rassoc value records) ;returns pair based on value
   (cond ((null? records) #f)
         ((equal? value (cdar records)) (car records))
         (else (rassoc value (cdr records)))))
 
 (define (delete! k t)
-  ???)
+  (let ((rest-of-t (cdr t)))
+    (if (equal? (caar rest-of-t) k) (set-cdr! t (cdr rest-of-t))
+      (delete! k (cdr t)))))
+
 
 ; 3.25
 
