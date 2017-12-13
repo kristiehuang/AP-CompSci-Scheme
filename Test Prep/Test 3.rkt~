@@ -1,11 +1,3 @@
-
-
-
-
-;environmental diagrams:
- ; when let is called -- is a lambda that is called immediately -- so creates a procedure two-dots + its own box
-
-
 (define (apply-directives pair directives)
 (if
 (null? directives) pair

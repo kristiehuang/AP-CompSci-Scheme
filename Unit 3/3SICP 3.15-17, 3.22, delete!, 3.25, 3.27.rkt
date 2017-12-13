@@ -172,10 +172,10 @@ a
   (let ((record (assoc k (cdr t))))
     (cond (record (cdr record))
           (else #f))))
-(define (assoc key records) ;returns pair based on key
+(define (association key records) ;returns pair based on key
   (cond ((null? records) #f)
         ((equal? key (caar records)) (car records))
-        (else (assoc key (cdr records)))))
+        (else (association key (cdr records)))))
 
 (define (rlookup k t)
   (let ((record (rassoc k (cdr t))))
@@ -191,8 +191,21 @@ a
     (if (equal? (caar rest-of-t) k) (set-cdr! t (cdr rest-of-t))
       (delete! k (cdr t)))))
 
+(define t1 (make-table))
+(insert! 'a 1 t1)
+t1
+t1
+
+(define t2 (make-table))
+(insert! 'hello 'a t2)
+(insert! t2 4 t1)
 
 ; 3.25
+
+(define a (list 1 2))
+(define b (cons a a))
+(set-car! a 3)
+b
 
 
 ; 3.27
