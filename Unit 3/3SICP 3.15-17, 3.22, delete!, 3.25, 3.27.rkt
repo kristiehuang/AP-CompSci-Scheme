@@ -188,7 +188,7 @@ a
 
 (define (delete! k t)
   (let ((rest-of-t (cdr t)))
-    (if (equal? (caar rest-of-t) k) (set-cdr! t (cdr rest-of-t))
+    (if (eq? (caar rest-of-t) k) (set-cdr! t (cdr rest-of-t))
       (delete! k (cdr t)))))
 
 (define t1 (make-table))
