@@ -45,8 +45,12 @@
              (insert-queue! (delete-queue! shoppingQueue) shoppingQueue)))))
 
 
-(define (hello x)
-  (cond ((hi?sk s) asdfa)
-        ((asdfa) (asdf))
-        )
+(define (apply-directives pair directives)
+  (if (null? directives) pair
+  (let ((directive (if (eq? (car directives?) 'a) car cdr)))
+    (apply-directives (directive pair) (cdr directives)))
   )
+
+
+
+
